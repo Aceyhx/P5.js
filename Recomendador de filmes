@@ -1,0 +1,54 @@
+let campoIdade;
+let campoFantasia;
+let campoAventura;
+
+function setup() {
+  createCanvas(800, 400);
+  createElement("h2", "Recomendador de filmes");
+  createSpan("Sua idade:");
+  campoIdade = createInput("5");
+  campoFantasia = createCheckbox("Gosta de fantasia?");
+  campoAventura = createCheckbox("Gosta de aventura?");
+}
+
+function draw() {
+  background("white");
+  let idade = int(campoIdade.value());
+  let gostaDeFantasia = campoFantasia.checked();
+  let gostaDeAventura = campoAventura.checked();
+  let recomendacao = geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura);
+
+  fill(color(76, 0, 115));
+  textAlign(CENTER, CENTER);
+  textSize(38);
+  text(recomendacao, width / 2, height / 2);
+}
+
+function geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura) {
+  if (idade >= 10) {
+    if (idade >= 14) {
+      return "A Origem dos Guardiões"; // Fantasia e ação
+    } else {
+      if (idade >= 12) {
+        if (gostaDeFantasia || gostaDeAventura) {
+          return "Jurassic World"; // Aventura e ação
+        } else {
+          return "O Clube dos Cinco"; // Drama
+        }
+      } else {
+        if (gostaDeFantasia) {
+          return "O Mundo dos Pequeninos"; // Fantasia e animação
+        } else {
+          return "O Pequeno Príncipe"; // Animação e drama
+        }
+      }
+    }
+  } else {
+    if (gostaDeFantasia) {
+      return "Meu Amigo Totoro"; // Fantasia e animação
+    } else {
+      return "O Mágico de Oz"; // Fantasia e aventura
+    }
+  }
+}
+
